@@ -16,7 +16,8 @@ CREATE TABLE "public.Transaction" (
 	"id" serial NOT NULL,
 	"client" VARCHAR(255) NOT NULL,
 	"currency" CHAR(3) NOT NULL,
-	"amount" integer NOT NULL,
+	"amount" double precision NOT NULL,
+	"ruble_amount" double precision NOT NULL,
 	CONSTRAINT "Transaction_pk" PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
