@@ -10,7 +10,7 @@ for source_file in source_files:
     # Наиболее эффективное решение: предварительно создать set и пополнять его вручную
     # Если мы напишем что-то вроде set([value for value in values]), то у нас будут лишние расходы на формирование списка
     values = set()
-    with open(source_file) as csvfile:
+    with open(f"../data/{source_file}") as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             # В каждой строке есть как минимум один элемент, поэтому все безопасно
