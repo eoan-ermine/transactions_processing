@@ -27,6 +27,9 @@ export:
 down:
 	docker compose down
 
+clean_volume:
+	sudo rm -rf .pgdata
+
 up:
 	docker compose up --detach
 
@@ -34,4 +37,5 @@ up_build:
 	docker compose up --detach --build
 
 restart: down up_build
-	
+
+clean_restart: down clean_volume up_build

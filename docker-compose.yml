@@ -3,22 +3,24 @@ version: "3.8"
 services:
   postgres:
     image: postgres:latest
+    env_file: .env
     environment:
       - POSTGRES_DB=${DB_NAME}
       - POSTGRES_USER=${DB_USER}
       - POSTGRES_PASSWORD=${DB_PASSWORD}
-    ports:
+    expose:
       - 5432
+    ports:
+      - 5432:5432
     volumes:
+      - ./postgresql/schemas:/docker-entrypoint-initdb.d
       - ./.pgdata:/var/lib/postgresql/data
-    networks:
-      - postgres
 
   transactions_processing:
-    restart: always
     build:
       context: ./
       dockerfile: Dockerfile
+    env_file: .env
     environment:
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
@@ -27,9 +29,4 @@ services:
       - DB_PORT=${DB_PORT}
     depends_on:
       - postgres
-    networks:
-      - postgres
-
-networks:
-    postgres:
-        driver: bridge
+    network_mode: host
