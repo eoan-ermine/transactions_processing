@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   postgres:
+    container_name: postgres
     image: postgres:latest
     env_file: .env
     environment:
@@ -17,6 +18,7 @@ services:
       - ./.pgdata:/var/lib/postgresql/data
 
   transactions_processing:
+    container_name: transactions_processing
     build:
       context: ./
       dockerfile: Dockerfile
