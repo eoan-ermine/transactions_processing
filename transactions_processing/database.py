@@ -3,7 +3,7 @@
 import psycopg2
 
 
-def get_connection(db_name, db_user, db_password, db_host, db_port):
+def get_connection(db_name: str, db_user: str, db_password: str, db_host: str, db_port: str) -> None:
     # Подключение к базе данных
     conn = psycopg2.connect(
         dbname=db_name, user=db_user, password=db_password, host=db_host, port=db_port, connect_timeout=10
@@ -11,7 +11,7 @@ def get_connection(db_name, db_user, db_password, db_host, db_port):
     return conn
 
 
-def store_clients(conn, clients: list[str]):
+def store_clients(conn: "psycopg2.connection", clients: list[str]) -> None:
     with conn:
         cur = conn.cursor()
         # Занесем в базу данных информацию о всех клиентах
@@ -19,7 +19,7 @@ def store_clients(conn, clients: list[str]):
             cur.execute('INSERT INTO "public.Client" (identifier) VALUES (%s) ON CONFLICT DO NOTHING', (client,))
 
 
-def store_currencies(conn, currencies: list[str]):
+def store_currencies(conn: "psycopg2.connection", currencies: list[str]) -> None:
     with conn:
         cur = conn.cursor()
         # Занесем в базу данных информацию о всех валютах
@@ -27,7 +27,7 @@ def store_currencies(conn, currencies: list[str]):
             cur.execute('INSERT INTO "public.Currency" (code) VALUES (%s) ON CONFLICT DO NOTHING', (currency,))
 
 
-def store_transactions(conn, transactions: list):
+def store_transactions(conn: "psycopg2.connection", transactions: list) -> None:
     with conn:
         cur = conn.cursor()
         # Занесем в базу данных информацию о всех транзакциях
