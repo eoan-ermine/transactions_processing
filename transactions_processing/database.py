@@ -42,7 +42,7 @@ def store_transactions(conn: "psycopg2.connection", transactions: list) -> None:
 
             # Заодно обновим BigTransaction/UsualTransaction
             # BigTransaction — события из списка, сумма транзакций которых больше 1000
-            # BigTransaction — события из списка, сумма транзакций которых меньше или равна 1000
+            # UsualTransaction — события из списка, сумма транзакций которых меньше или равна 1000
             if ruble_amount > 1000:
                 cur.execute('INSERT INTO "public.BigTransaction" (transaction_id) VALUES(%s)', (transaction_id,))
             else:
